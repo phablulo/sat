@@ -57,5 +57,3 @@ exports.solve = function(filename) {
 	const result = doSolve(formula.clauses, formula.variables);
 	return result;
 }
-
-console.log(exports.solve('simple1.cnf'));
