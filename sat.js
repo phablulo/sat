@@ -4,7 +4,7 @@ function readFormula(filename) {
 	const specification = text[0].split(' ').slice(2).map(x => +x);
 	text.shift(); // okay, i hope you're not using a big array.
 	const variables = Array(specification[0]).fill(0);
-	const clauses = text.map(clause => clause.split(' ').slice(0, -1).map(x => parseInt(x)));
+	const clauses = text.map(clause => clause.split(/\s+/).filter(x => x).slice(0, -1).map(x => +x));
 
 	if (specification[1] != clauses.length)
 		throw new Error(`Clause number mismatch: expected ${specification[1]} but got ${clauses.length}`);
