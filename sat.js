@@ -30,6 +30,40 @@ function nextAssignment(currentAssignment) {
 	}
 	return currentAssignment;
 }
+function doSolveWithWhile(clauses, assignment) {
+	let isSat;
+	while (true) {
+		console.log(assignment);
+		isSat = true;
+		for (let i = clauses.length-1; i > -1; --i) {
+			const test = clauses[i].map(variable => {
+				const value = assignment[Math.abs(variable) - 1];
+				if (variable < 0) return +!value;
+				return value;
+			}).reduce((p, c) => p + c, 0);
+			if (!test) {
+				isSat = false;
+				break;
+			}
+		}
+		if (isSat) break;
+		else {
+			try {
+				nextAssignment(assignment);
+			} catch (e) {
+				break;
+			}
+		}
+	}
+	if (isSat) return {
+		isSat: true,
+		satisfyingAssignment: assignment
+	}
+	return {
+		isSat: false,
+		satisfyingAssignment: null
+	}
+}
 function doSolve(clauses, assignment) {
 	let isSat = true;
 	for (let i = clauses.length-1; i > -1; --i) {
