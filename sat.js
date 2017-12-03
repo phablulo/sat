@@ -10,7 +10,22 @@ function readFormula(filename) {
 		clauses: clauses,
 		variables: variables
 	}
-
 }
-
-console.log(readFormula('simple0.cnf'))
+function nextAssignment(currentAssignment) {
+	if (Math.min.apply(null, currentAssignment) == 1)
+		throw new Error("Todas as possibilidades já foram testadas");
+	const last = currentAssignment.length - 1;
+	for (let i = last; i > -1; --i) {
+		if (currentAssignment[i] == 0) {
+			currentAssignment[i] = 1;
+			break;
+		} else {
+			currentAssignment[i] = 0;
+		}
+	}
+	return currentAssignment;
+}
+const arr = [0,0,0,0];
+for (let i = 0; i < 20; ++i) {
+	console.log(i,nextAssignment(arr));
+}
