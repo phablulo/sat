@@ -1,11 +1,16 @@
 const fs = require('fs');
 function readFormula(filename) {
-	const text = fs.readFileSync(filename).toString().split('\n').filter(line => line && line[0] != 'c')
-	const specification = text[0].split(' ').slice(2).map(parseInt);
+	const text = fs.readFileSync(filename).toString().split('\n').filter(line => line && line[0] != 'c');
+	const specification = text[0].split(' ').slice(2).map(x => +x);
 	text.shift(); // okay, i hope you're not using a big array.
 	const variables = Array(specification[0]).fill(0);
 	const clauses = text.map(clause => clause.split(' ').slice(0, -1).map(x => parseInt(x)));
-	// i'm gonna skip problem specification check for now.
+
+	if (specification[1] != clauses.length)
+		throw new Error(`Clause number mismatch: expected ${specification[1]} but got ${clauses.length}`);
+	if (specification[0] != (vn = Math.max.apply(null, clauses.map(clause => Math.max.apply(null, clause.map(x => Math.abs(x)))))))
+		throw new Error(`Variable number mismatch: expected ${specification[0]} but got ${vn}`);
+
 	return {
 		clauses: clauses,
 		variables: variables
