@@ -52,5 +52,10 @@ function doSolve(clauses, assignment) {
 	}
 }
 
-const formula = readFormula('simple2.cnf');
-console.log(doSolve(formula.clauses, formula.variables));
+exports.solve = function(filename) {
+	const formula = readFormula(filename);
+	const result = doSolve(formula.clauses, formula.variables);
+	return result;
+}
+
+console.log(exports.solve('simple1.cnf'));
