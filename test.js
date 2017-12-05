@@ -13,7 +13,7 @@ des.toString = () => 'Des';
 		let a1;
 		for (let i = 0; i < 3; ++i) a1 = sat(filename);
 		time = process.hrtime(time);
-		time = (time[0] * 1e9 + time[1])/1e9;
-		console.log(`\t${t} [${time}ms]:`, JSON.stringify(a1.satisfyingAssignment));
+		time = (time[0] * 1e9 + time[1])/(3*1e9);
+		console.log(`\t${t} [${time}s]:`, JSON.stringify(a1.satisfyingAssignment));
 	});
 })
